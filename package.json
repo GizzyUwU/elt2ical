@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@touch4it/ical-timezones": "^1.9.0",
     "@types/bun": "^1.2.23",
     "ical-generator": "^9.0.0"
   },

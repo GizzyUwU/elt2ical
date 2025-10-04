@@ -3,12 +3,15 @@
   "workspaces": {
     "": {
       "dependencies": {
+        "@touch4it/ical-timezones": "^1.9.0",
         "@types/bun": "^1.2.23",
         "ical-generator": "^9.0.0",
       },
     },
   },
   "packages": {
+    "@touch4it/ical-timezones": ["@touch4it/ical-timezones@1.9.0", "", {}, "sha512-UAiZMrFlgMdOIaJDPsKu5S7OecyMLr3GGALJTYkRgHmsHAA/8Ixm1qD09ELP2X7U1lqgrctEgvKj9GzMbczC+g=="],
+
     "@types/bun": ["@types/bun@1.2.23", "", { "dependencies": { "bun-types": "1.2.23" } }, "sha512-le8ueOY5b6VKYf19xT3McVbXqLqmxzPXHsQT/q9JHgikJ2X22wyTW3g3ohz2ZMnp7dod6aduIiq8A14Xyimm0A=="],
 
     "@types/luxon": ["@types/luxon@3.7.1", "", {}, "sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg=="],

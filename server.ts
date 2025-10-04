@@ -1,6 +1,8 @@
 import { LoginRequest, LoginResponse } from "./types/EduLink.Login";
 import { TimetableRequest, TimetableResponse } from "./types/EduLink.Timetable";
 import ical from 'ical-generator';
+import { getVtimezoneComponent } from '@touch4it/ical-timezones';
+
 (async () => {
     const server: string | undefined = process.env.SERVER;
     const identifier: string | undefined = process.env.IDENTIFIER
@@ -94,6 +96,10 @@ import ical from 'ical-generator';
         }
 
         const calendar = ical({ name: 'Openlink Calendar' });
+        calendar.timezone({
+            name: process.env.TIMEZONE ?? 'Europe/London',
+            generator: getVtimezoneComponent,
+        });
         for (const week of timetableData.result.weeks) {
             for (const day of week.days) {
                 const dayDate = new Date(day.date);
