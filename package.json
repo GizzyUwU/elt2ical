@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/bun": "^1.2.23",
+    "ical-generator": "^9.0.0"
+  },
+  "scripts": {
+    "dev": "bun run server.ts"
+  }
+}
