@@ -4,6 +4,11 @@ Ever had EdulinkOne Timetable ICalendar Link give you empty data? This project i
 
 ## Running ELT2ICal
 ### Docker
+This project doesn't include a prebuilt docker image meaning you gotta build it yourself using the dockerfile but with docker compose it's easy! You just gotta clone the repo, add .env file with the data required set out below in the configuration section and run the command below (if you have docker installed)
+
+```bash
+$ docker compose up -d
+```
 
 ### Manual
 This project is built using BunJS specific stuff like Bun.fetch requiring it to be ran in BunJS
