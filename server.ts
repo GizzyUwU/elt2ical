@@ -104,7 +104,7 @@ import { DateTime } from 'luxon';
         });
         for (const week of timetableData.result.weeks) {
             for (const day of week.days) {
-                 const dayDate = DateTime.fromISO(day.date, { zone: timezone });
+                const dayDate = DateTime.fromISO(day.date, { zone: timezone });
 
                 for (const period of day.periods) {
                     if (period.empty) continue;
@@ -118,12 +118,15 @@ import { DateTime } from 'luxon';
                         const [sh, sm] = period.start_time.split(':').map(Number);
                         const [eh, em] = period.end_time.split(':').map(Number);
 
-                        const periodStart = dayDate.set({ hour: sh, minute: sm, second: 0, millisecond: 0 }).toJSDate();
-                        const periodEnd = dayDate.set({ hour: eh, minute: em, second: 0, millisecond: 0 }).toJSDate();
+                        const periodStart = dayDate.set({ hour: sh, minute: sm, second: 0, millisecond: 0 });
+                        const periodEnd = dayDate.set({ hour: eh, minute: em, second: 0, millisecond: 0 });
+
+                        const startUTC = periodStart.toUTC().toJSDate();
+                        const endUTC = periodEnd.toUTC().toJSDate();
 
                         calendar.createEvent({
-                            start: new Date(periodStart).toISOString(),
-                            end: new Date(periodEnd).toISOString(),
+                            start: new Date(startUTC).toISOString(),
+                            end: new Date(endUTC).toISOString(),
                             summary: lesson.teaching_group?.subject ?? lesson.description,
                             location: lesson.room?.name ?? 'Unknown Room',
                             timezone: timezone,
