@@ -118,6 +118,7 @@ import ical from 'ical-generator';
                             end: new Date(periodEnd),
                             summary: lesson.teaching_group?.subject ?? lesson.description,
                             location: lesson.room?.name ?? 'Unknown Room',
+                            timezone: process.env.TIMEZONE || 'Europe/London',
                         });
                     }
                 }
