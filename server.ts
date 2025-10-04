@@ -113,7 +113,6 @@ import ical from 'ical-generator';
 
                         periodStart.setHours(sh, sm, 0, 0);
                         periodEnd.setHours(eh, em, 0, 0);
-                        console.log(lesson.teaching_group?.subject, new Date(periodStart), new Date(periodEnd))
                         calendar.createEvent({
                             start: new Date(periodStart),
                             end: new Date(periodEnd),
