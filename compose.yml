@@ -1,0 +1,8 @@
+services:
+  elt2ical:
+    build:
+      context: .
+    env_file: .env
+    ports:
+      - 42772:5000
+    restart: always
