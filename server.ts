@@ -141,9 +141,16 @@ import { DateTime } from 'luxon';
         routes: {
             "/api/ical/:id": req => {
                 if (req.params.id !== randomIdentifier) {
-                    return Response.json({ message: "Not Found" }, { status: 404 })
+                    const res = Response.json({ message: "Not Found" }, { status: 404 });
+                    res.headers.set('Access-Control-Allow-Origin', '*');
+                    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                    return res;
                 }
-                return new Response(timetable.toString())
+
+                const res = new Response(timetable.toString());
+                res.headers.set('Access-Control-Allow-Origin', '*');
+                res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+                return res;
             }
         }
     })
