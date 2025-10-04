@@ -98,10 +98,10 @@ import { DateTime } from 'luxon';
         }
 
         const calendar = ical({ name: 'Openlink Calendar' });
-        calendar.timezone({
-            name: timezone,
-            generator: getVtimezoneComponent,
-        });
+        // calendar.timezone({
+        //     name: timezone,
+        //     generator: getVtimezoneComponent,
+        // });
         for (const week of timetableData.result.weeks) {
             for (const day of week.days) {
                 const dayDate = DateTime.fromISO(day.date, { zone: timezone });
@@ -129,7 +129,7 @@ import { DateTime } from 'luxon';
                             end: new Date(endUTC).toISOString(),
                             summary: lesson.teaching_group?.subject ?? lesson.description,
                             location: lesson.room?.name ?? 'Unknown Room',
-                            timezone: timezone,
+                            // timezone: timezone,
                         });
                     }
                 }
