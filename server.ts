@@ -2,12 +2,14 @@ import { LoginRequest, LoginResponse } from "./types/EduLink.Login";
 import { TimetableRequest, TimetableResponse } from "./types/EduLink.Timetable";
 import ical from 'ical-generator';
 import { getVtimezoneComponent } from '@touch4it/ical-timezones';
+import { DateTime } from 'luxon';
 
 (async () => {
     const server: string | undefined = process.env.SERVER;
     const identifier: string | undefined = process.env.IDENTIFIER
     const user: string | undefined = process.env.ACCOUNT;
     const pass: string | undefined = process.env.PASSWORD;
+    const timezone: string = process.env.TIMEZONE || "Europe/London";
     let randomIdentifier: string | undefined = process.env.RANDOM_IDENTIFER;
     let port = process.env.PORT ? Number(process.env.PORT) : undefined;
     let authToken: string;
@@ -97,12 +99,12 @@ import { getVtimezoneComponent } from '@touch4it/ical-timezones';
 
         const calendar = ical({ name: 'Openlink Calendar' });
         calendar.timezone({
-            name: process.env.TIMEZONE ?? 'Europe/London',
+            name: timezone,
             generator: getVtimezoneComponent,
         });
         for (const week of timetableData.result.weeks) {
             for (const day of week.days) {
-                const dayDate = new Date(day.date);
+                 const dayDate = DateTime.fromISO(day.date, { zone: timezone });
 
                 for (const period of day.periods) {
                     if (period.empty) continue;
@@ -112,19 +114,19 @@ import { getVtimezoneComponent } from '@touch4it/ical-timezones';
                     );
 
                     for (const lesson of lessons) {
-                        const periodStart = new Date(dayDate);
-                        const periodEnd = new Date(dayDate);
+
                         const [sh, sm] = period.start_time.split(':').map(Number);
                         const [eh, em] = period.end_time.split(':').map(Number);
 
-                        periodStart.setHours(sh, sm, 0, 0);
-                        periodEnd.setHours(eh, em, 0, 0);
+                        const periodStart = dayDate.set({ hour: sh, minute: sm, second: 0, millisecond: 0 }).toJSDate();
+                        const periodEnd = dayDate.set({ hour: eh, minute: em, second: 0, millisecond: 0 }).toJSDate();
+
                         calendar.createEvent({
-                            start: new Date(periodStart),
-                            end: new Date(periodEnd),
+                            start: new Date(periodStart).toISOString(),
+                            end: new Date(periodEnd).toISOString(),
                             summary: lesson.teaching_group?.subject ?? lesson.description,
                             location: lesson.room?.name ?? 'Unknown Room',
-                            timezone: process.env.TIMEZONE || 'Europe/London',
+                            timezone: timezone,
                         });
                     }
                 }
