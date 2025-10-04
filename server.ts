@@ -117,8 +117,8 @@ import { DateTime } from 'luxon';
                         const [sh, sm] = period.start_time.split(':').map(Number);
                         const [eh, em] = period.end_time.split(':').map(Number);
 
-                        const periodStart = dayDate.set({ hour: sh, minute: sm, second: 0, millisecond: 0 }).toJSDate();
-                        const periodEnd = dayDate.set({ hour: eh, minute: em, second: 0, millisecond: 0 }).toJSDate();
+                        const periodStart = dayDate.set({ hour: sh, minute: sm, second: 0, millisecond: 0 });
+                        const periodEnd = dayDate.set({ hour: eh, minute: em, second: 0, millisecond: 0 });
 
                         calendar.createEvent({
                             start: periodStart,
